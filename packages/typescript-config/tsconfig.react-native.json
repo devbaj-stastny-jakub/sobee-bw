@@ -2,8 +2,15 @@
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "jsx": "react-native",
+        "lib": ["DOM", "ESNext"],
         "noEmit": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "module": "preserve",
+        "target": "esnext",
+        "moduleDetection": "force",
+        "moduleResolution": "bundler",
+        "customConditions": ["react-native"],
+        "allowJs": true
     },
     "include": ["src"]
 }
