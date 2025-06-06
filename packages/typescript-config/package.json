@@ -1,0 +1,13 @@
+{
+    "name": "@repo/typescript-config",
+    "version": "1.0.0",
+    "private": true,
+    "files": [
+        "tsconfig.*.json"
+    ],
+    "exports": {
+        "./package": "./tsconfig.package.json",
+        "./express": "./tsconfig.express.json",
+        "./react-native": "./tsconfig.react-native.json"
+    }
+}
