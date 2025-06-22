@@ -2,14 +2,8 @@ import { Text, View } from 'react-native';
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen. Lol</Text>
+    <View className="flex justify-center items-center flex-row gap-2">
+      <Text>Home text</Text>
     </View>
   );
 }
