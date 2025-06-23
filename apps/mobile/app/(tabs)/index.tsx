@@ -1,18 +1,18 @@
-import { Text, View, Image } from 'react-native';
+import { ScrollView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Index() {
+const Index = () => {
     return (
-        <View className="flex justify-center items-center flex-row gap-2">
-            <Text>Tabs index</Text>
-            <Image
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/25/25694.png' }}
-                className="h-52 w-52"
-            />
-        </View>
+        <SafeAreaView className="bg-red-500 flex-1" edges={['top', 'left', 'right']}>
+            <ScrollView className="bg-green-500">
+                {Array.from({ length: 100 }).map((_, i) => (
+                    <Text key={i} className="text-base mb-4">
+                        Item {i + 1}
+                    </Text>
+                ))}
+            </ScrollView>
+        </SafeAreaView>
     );
-}
-
-export const options = {
-  title: 'Home',
-  headerShown: false,
 };
+
+export default Index;

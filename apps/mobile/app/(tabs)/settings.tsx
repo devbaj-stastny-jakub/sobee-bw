@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import { Text, View } from 'react-native';
 
 const Settings = () => {
-  return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  );
+    return (
+        <View>
+            <Text>Settings</Text>
+        </View>
+    );
 };
 
 export default Settings;

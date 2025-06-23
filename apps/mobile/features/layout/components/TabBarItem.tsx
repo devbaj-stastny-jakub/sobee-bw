@@ -1,13 +1,12 @@
-import { View, Image, ImageSourcePropType, Pressable } from 'react-native';
 import React, { forwardRef, useEffect } from 'react';
-import clsx from 'clsx';
+import { Image, ImageSourcePropType, Pressable, View } from 'react-native';
 import Animated, {
     interpolateColor,
     useAnimatedStyle,
     useSharedValue,
     withSpring,
-    withTiming,
 } from 'react-native-reanimated';
+import clsx from 'clsx';
 import { TabTriggerSlotProps } from 'expo-router/ui';
 
 interface TabBarItemProps extends TabTriggerSlotProps {
@@ -15,7 +14,7 @@ interface TabBarItemProps extends TabTriggerSlotProps {
 }
 
 const TabBarItem = forwardRef<View, TabBarItemProps>(
-    ({ icon, isFocused, style, ...props }, ref) => {
+    ({ icon, isFocused, style: _style, ...props }, ref) => {
         const progress = useSharedValue(0);
 
         const animatedStyle = useAnimatedStyle(() => {

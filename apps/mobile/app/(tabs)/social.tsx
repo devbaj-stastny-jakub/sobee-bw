@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import { Text, View } from 'react-native';
 
 const Social = () => {
-  return (
-    <View>
-      <Text>Social</Text>
-    </View>
-  );
+    return (
+        <View>
+            <Text>Social</Text>
+        </View>
+    );
 };
 
 export default Social;

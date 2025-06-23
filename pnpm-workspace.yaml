@@ -1,3 +1,10 @@
 packages:
     - apps/*
     - packages/*
+hoistPattern:
+    - '*metro*'
+    - '@babel*'
+    - '*prettier*'
+    - '*eslint*'
+    - '*typescript*'
+    - '*react*'

@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native';
 import React from 'react';
+import { Text, View } from 'react-native';
 
 const Achievements = () => {
-  return (
-    <View>
-      <Text>Achievements</Text>
-    </View>
-  );
+    return (
+        <View>
+            <Text>Achievements</Text>
+        </View>
+    );
 };
 
 export default Achievements;
