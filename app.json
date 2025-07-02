@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "sobee-bw-2",
-    "slug": "sobee-bw-2",
+    "name": "SoBee",
+    "slug": "SoBee",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/bee.png",
-    "scheme": "sobeebw2",
+    "scheme": "soBee",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.sobeebw2"
+      "bundleIdentifier": "com.anonymous.soBee"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.sobeebw2"
+      "package": "com.anonymous.soBee"
     },
     "web": {
       "bundler": "metro",
