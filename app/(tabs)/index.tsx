@@ -1,75 +1,67 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useEffect } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import Button from '@/components/Button';
+import FabButton from '@/components/FabButton';
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+import { dangerIcon, studyHatIcon } from '@/assets/icons';
+import { colors } from '@/constants';
+import AddictionSelect from '@/features/hive/components/AddictionSelect';
+import Hive from '@/features/hive/components/Hive';
+import ResourcesSection from '@/features/hive/components/ResourcesSection';
+import StreakClock from '@/features/hive/components/StreakClock';
+import TabPage from '@/features/layout/components/TabPage';
+import { useUser } from '@/shared/user';
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+const Index = () => {
+    const { user, isLoading: isLoadingUser } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isLoadingUser) {
+            return;
+        }
+        if (user === null) {
+            router.replace('/onboarding');
+        }
+    }, [user, router, isLoadingUser]);
+
+    if (isLoadingUser) {
+        return (
+            <View className="flex-1 items-center justify-center bg-background-white">
+                <ActivityIndicator size="large" color={colors.primary.DEFAULT} />
+            </View>
+        );
+    }
+
+    return (
+        <TabPage
+            header={
+                <View className="flex-row gap-2 justify-between w-full">
+                    <View className="flex-row">
+                        <AddictionSelect />
+                    </View>
+                    <View className="flex flex-row gap-2">
+                        <FabButton href="/learning" icon={studyHatIcon} color="secondary" />
+                        <Button href="/craving" suffixIcon={dangerIcon} color="error">
+                            Craving
+                        </Button>
+                    </View>
+                </View>
+            }
+        >
+            <View className="flex-row gap-1 justify-center mb-5 mt-2">
+                <Text className="text-xl font-bold">10days</Text>
+                <Text className="text-xl">until</Text>
+                <Text className="text-xl font-bold">1 month</Text>
+                <Text className="text-xl">milestone...</Text>
+            </View>
+            <Hive />
+            <ResourcesSection />
+            <StreakClock />
+        </TabPage>
+    );
+};
+
+export default Index;

@@ -1,29 +1,84 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import './global.css';
+
+import { colors } from '@/constants';
+import { initializeDatabase } from '@/db';
+import { dataSource } from '@/db/dataSource';
+import { StreakContextProvider } from '@/shared/streak';
+import { UserContextProvider } from '@/shared/user/context';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    const [loading, setLoading] = useState(true);
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+    useEffect(() => {
+        const init = async () => {
+            try {
+                if (dataSource.isInitialized === false) {
+                    await initializeDatabase();
+                }
+            } catch (error) {
+                console.error('Database initialization error:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        init();
+    }, []);
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    if (loading) {
+        return (
+            <View className="flex-1 items-center justify-center bg-background-white">
+                <ActivityIndicator size="large" color={colors.primary.DEFAULT} />
+            </View>
+        );
+    }
+
+    return (
+        <UserContextProvider>
+            <StreakContextProvider>
+                <Stack>
+                    <Stack.Screen
+                        name="(tabs)"
+                        options={{ headerShown: false, animation: 'none' }}
+                    />
+                    <Stack.Screen
+                        name="learning"
+                        options={{
+                            headerShown: false,
+                            animation: 'slide_from_bottom',
+                            animationDuration: 200,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="craving"
+                        options={{
+                            headerShown: false,
+                            animation: 'fade',
+                            animationDuration: 100,
+                            gestureEnabled: false,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="onboarding"
+                        options={{
+                            headerShown: false,
+                            animation: 'none',
+                            gestureEnabled: false,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="failure"
+                        options={{
+                            headerShown: false,
+                            animation: 'none',
+                            gestureEnabled: false,
+                        }}
+                    />
+                </Stack>
+            </StreakContextProvider>
+        </UserContextProvider>
+    );
 }
