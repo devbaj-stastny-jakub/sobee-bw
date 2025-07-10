@@ -2,6 +2,11 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## Prerequisites
+
+1. Installed node.js
+2. mobile device emulator or physical device
+
 ## Get started
 
 1. Install dependencies
